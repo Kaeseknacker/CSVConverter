@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
     CsvReader.cpp \
-    AccountingEntry.cpp
+    AccountingEntry.cpp \
+    TableModel.cpp
 
 HEADERS += \
         MainWindow.h \
     CsvReader.h \
-    AccountingEntry.h
+    AccountingEntry.h \
+    TableModel.h
 
 FORMS += \
         MainWindow.ui

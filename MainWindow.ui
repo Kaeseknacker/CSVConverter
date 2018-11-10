@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>572</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,28 +34,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTableWidget" name="tableWidget_accountingEntries">
-      <column>
-       <property name="text">
-        <string>Tag</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Buchungstext</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Umsatz</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Kategorie</string>
-       </property>
-      </column>
-     </widget>
+     <widget class="QTableView" name="tableView_accountingEntries"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_export">
@@ -79,6 +58,13 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_importFilePath</tabstop>
+  <tabstop>pushButton_import</tabstop>
+  <tabstop>tableView_accountingEntries</tabstop>
+  <tabstop>lineEdit_exportFilePath</tabstop>
+  <tabstop>pushButton_export</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
