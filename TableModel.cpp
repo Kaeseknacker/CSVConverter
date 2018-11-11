@@ -26,15 +26,15 @@ int TableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
+    // Ungültiger Index
     if (!index.isValid()) {
-        qDebug() << "unvalid";
         return QVariant();
     }
-
     if (index.row() >= mEntries.size() || index.row() < 0)
         return QVariant();
 
-    if (role == Qt::DisplayRole) {
+    // Daten werden angefordert
+    if (role == Qt::DisplayRole || role == Qt::EditRole) {
         auto entrie = mEntries.at(index.row());
 
         if (index.column() == 0)
@@ -46,6 +46,13 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         else if (index.column() == 3)
             return entrie.getCategorieAsString();
     }
+
+    // Ausrichtung der Daten
+    if (role == Qt::TextAlignmentRole) {
+        if (index.column() == 2)
+            return int(Qt::AlignRight | Qt::AlignVCenter);
+    }
+
     return QVariant();
 }
 
@@ -81,7 +88,11 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
-    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+    if (index.column() == 1) {
+        return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+    } else {
+        return QAbstractTableModel::flags(index);
+    }
 }
 
 
@@ -95,10 +106,13 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
         // TODO: richtig programmieren
 
         if (index.column() == 0)
-//            entrie.name = value.toString();
-            qDebug() << "not";
+            return false;
         else if (index.column() == 1)
             entrie.setDescription(value.toString());
+        else if (index.column() == 2)
+            return false;
+        else if (index.column() == 3)
+            return false;
         else
             return false;
 

@@ -28,7 +28,7 @@ public:
     //! Liefert die Header-Daten (Zeilen- und Spalten-Bezeichnungen)
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-    //! Prueft ob das Item editierbar ist
+    //! Prueft was mit der selektierten Zelle gemacht werden darf
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
     //! Setzt neue Daten
