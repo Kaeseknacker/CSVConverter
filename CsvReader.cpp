@@ -56,5 +56,7 @@ QList<AccountingEntry> CsvReader::readFile(QString filePath)
         }
     }
 
+    file.close();
+
     return entries;
 }

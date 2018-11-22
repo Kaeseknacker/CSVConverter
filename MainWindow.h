@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "CsvReader.h"
+#include "CsvWriter.h"
 #include "TableModel.h"
 
 namespace Ui {
@@ -27,6 +28,7 @@ private:
     Ui::MainWindow *ui;
 
     CsvReader mCsvReader;
+    CsvWriter mCsvWriter;
 
     TableModel* mTableModel;
 

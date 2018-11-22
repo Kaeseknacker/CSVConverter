@@ -47,5 +47,22 @@ void MainWindow::openCsvFile()
 void MainWindow::exportCsvFile()
 {
     qDebug() << "TODO: csv-File exportieren";
+
+    QList<AccountingEntry> entries; // Vom Table Model holen
+
+    for (int row = 0; row < mTableModel->rowCount(QModelIndex()); row++) {
+        AccountingEntry entry;
+        entry.setAccountingDate(QDate::fromString(mTableModel->data(mTableModel->index(row, 0), Qt::DisplayRole).toString(), "dd.MM.yyyy"));
+        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), Qt::DisplayRole).toString());
+        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), Qt::DisplayRole).toFloat());
+        entry.setCategorie(AccountingEntry::Categorie::HAUSHALT);
+
+        entries.push_back(entry);
+    }
+
+    qDebug() << "Entries:" << entries.size();
+
+    mCsvWriter.writeFile(ui->lineEdit_exportFilePath->text(), entries);
+
 }
 

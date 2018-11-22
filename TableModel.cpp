@@ -26,6 +26,8 @@ int TableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
+    // TODO User Rollen einfügen und dann einen ganzen Entry zurückgeben
+
     // Ungültiger Index
     if (!index.isValid()) {
         return QVariant();

@@ -13,10 +13,6 @@ public:
 
     QList<AccountingEntry> readFile(QString filePath);
 
-private:
-
-    QFile mFile;
-
 };
 
 #endif // CSVREADER_H
