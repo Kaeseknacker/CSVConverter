@@ -2,6 +2,9 @@
 #include "ui_MainWindow.h"
 
 #include <QDebug>
+#include <QUrl>
+
+#include "ComboBoxItemDelegate.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mTableModel = new TableModel(this);
     ui->tableView_accountingEntries->setModel(mTableModel);
+    ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->tableView_accountingEntries);
+    ui->tableView_accountingEntries->setItemDelegateForColumn(3, cbid);
 
     connect(ui->pushButton_import, &QPushButton::clicked, this, &MainWindow::openCsvFile);
     connect(ui->pushButton_export, &QPushButton::clicked, this, &MainWindow::exportCsvFile);
@@ -29,6 +34,7 @@ void MainWindow::openCsvFile()
     QList<AccountingEntry> entries = mCsvReader.readFile(ui->lineEdit_importFilePath->text());
     if (entries.isEmpty()) {
         qDebug() << "Datei-Öffnen fehlgeschlagen!";
+        return;
     }
 
     qDebug() << "#Buchungen: " << entries.size();

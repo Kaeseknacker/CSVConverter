@@ -88,7 +88,7 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
-    if (index.column() == 1) {
+    if (index.column() == 1 || index.column() == 3) {
         return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
     } else {
         return QAbstractTableModel::flags(index);
@@ -104,6 +104,8 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
         auto entrie = mEntries.value(row);
 
         // TODO: richtig programmieren
+        // HIER WEITER
+        // Setzen der Kategorien richtig machen. Es ist dumm das einmal enums verwendet werde und einmal strings.
 
         if (index.column() == 0)
             return false;
@@ -112,7 +114,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
         else if (index.column() == 2)
             return false;
         else if (index.column() == 3)
-            return false;
+            entrie.setCategorie(AccountingEntry::Categorie::HAUSHALT);
         else
             return false;
 

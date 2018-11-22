@@ -9,11 +9,15 @@
 class AccountingEntry
 {
 
+public:
+
     enum Categorie {
         HAUSHALT, GEBUEHREN, NONE
     };
 
 public:
+
+    //! Konstruktor
     AccountingEntry();
 
 public:
@@ -29,6 +33,8 @@ public:
     QString getCategorieAsString();
 
     QString toString();
+
+    static QStringList getAllCategorieStrings();
 
 private:
 

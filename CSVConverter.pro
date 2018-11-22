@@ -28,13 +28,15 @@ SOURCES += \
         MainWindow.cpp \
     CsvReader.cpp \
     AccountingEntry.cpp \
-    TableModel.cpp
+    TableModel.cpp \
+    ComboBoxItemDelegate.cpp
 
 HEADERS += \
         MainWindow.h \
     CsvReader.h \
     AccountingEntry.h \
-    TableModel.h
+    TableModel.h \
+    ComboBoxItemDelegate.h
 
 FORMS += \
         MainWindow.ui

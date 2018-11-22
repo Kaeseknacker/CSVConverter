@@ -74,3 +74,13 @@ QString AccountingEntry::toString()
     string += QString("Categorie: ") + mCategorie;
     return string;
 }
+
+
+QStringList AccountingEntry::getAllCategorieStrings()
+{
+    QStringList list;
+    list << "Haushalt";
+    list << "Gebühren";
+    list << "n/a";
+    return list;
+}
