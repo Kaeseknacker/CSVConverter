@@ -39,7 +39,9 @@ void MainWindow::openCsvFile()
 
     qDebug() << "#Buchungen: " << entries.size();
 
-    mTableModel->setAccountingEntries(entries);
+    for (auto entry : entries) {
+        mTableModel->addAccountingEntry(entry);
+    }
 
 }
 
@@ -55,7 +57,7 @@ void MainWindow::exportCsvFile()
         entry.setAccountingDate(QDate::fromString(mTableModel->data(mTableModel->index(row, 0), Qt::DisplayRole).toString(), "dd.MM.yyyy"));
         entry.setDescription(mTableModel->data(mTableModel->index(row, 1), Qt::DisplayRole).toString());
         entry.setAmount(mTableModel->data(mTableModel->index(row, 2), Qt::DisplayRole).toFloat());
-        entry.setCategorie(AccountingEntry::Categorie::HAUSHALT);
+        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), Qt::DisplayRole).toString()));
 
         entries.push_back(entry);
     }

@@ -2,6 +2,8 @@
 
 debug/
 Pfad.csv
+object_script.CSVConverter.Debug
+object_script.CSVConverter.Release
 
 ###
 

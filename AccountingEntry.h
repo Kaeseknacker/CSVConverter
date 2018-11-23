@@ -15,6 +15,9 @@ public:
         HAUSHALT, GEBUEHREN, NONE
     };
 
+    static QStringList getAllCategorieStrings();
+    static Categorie categorieFromString(QString string);
+
 public:
 
     //! Konstruktor
@@ -34,7 +37,6 @@ public:
 
     QString toString();
 
-    static QStringList getAllCategorieStrings();
 
 private:
 

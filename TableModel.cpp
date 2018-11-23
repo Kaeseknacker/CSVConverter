@@ -109,16 +109,20 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
         // HIER WEITER
         // Setzen der Kategorien richtig machen. Es ist dumm das einmal enums verwendet werde und einmal strings.
 
-        if (index.column() == 0)
+        if (index.column() == 0) {
+            // Datum nicht editierbar
             return false;
-        else if (index.column() == 1)
+        } else if (index.column() == 1) {
             entrie.setDescription(value.toString());
-        else if (index.column() == 2)
+        } else if (index.column() == 2) {
+            // Betrag nicht editierbar
             return false;
-        else if (index.column() == 3)
-            entrie.setCategorie(AccountingEntry::Categorie::HAUSHALT);
-        else
+        } else if (index.column() == 3) {
+            QString categorieString = value.toString();
+            entrie.setCategorie(AccountingEntry::categorieFromString(categorieString));
+        } else {
             return false;
+        }
 
         mEntries.replace(row, entrie);
         emit(dataChanged(index, index));
@@ -130,11 +134,11 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
 }
 
 
-void TableModel::setAccountingEntries(QList<AccountingEntry> entries)
+QModelIndex TableModel::addAccountingEntry(AccountingEntry entry)
 {
-    //int newRow = rowCount(QModelIndex());
-    // TODO: Bugfixing, falls mehrmals aufgerufen
-    beginInsertRows(QModelIndex(), 0, entries.size() - 1);
-    mEntries = entries;
+    int rowIndex = rowCount();
+    beginInsertRows(QModelIndex(), rowIndex, rowIndex);
+    mEntries.append(entry);
     endInsertRows();
+    return index(rowIndex, 0);
 }

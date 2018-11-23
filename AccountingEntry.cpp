@@ -84,3 +84,15 @@ QStringList AccountingEntry::getAllCategorieStrings()
     list << "n/a";
     return list;
 }
+
+
+AccountingEntry::Categorie AccountingEntry::categorieFromString(QString string)
+{
+    if (string == "Haushalt") {
+        return Categorie::HAUSHALT;
+    } else if (string == "Gebühren") {
+        return Categorie::GEBUEHREN;
+    } else {
+        return Categorie::NONE;
+    }
+}
