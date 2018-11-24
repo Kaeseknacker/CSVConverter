@@ -12,11 +12,27 @@ class AccountingEntry
 public:
 
     enum Categorie {
-        HAUSHALT, GEBUEHREN, NONE
+        GEHALT,                 // Gehalt
+        WOHNEN,                 // Wohnen
+        BEITRAEGE,              // Beitrage & Gebühren
+        MOBILITAET,             // Mobilität & Verkehr
+        ABSICHERUNG,            // Absicherung
+        STEUERN,                // Steuern & Abgaben
+        SPAREN,                 // Sparen & Anlegen
+        GESUNDHEIT,             // Gesundheit & Pflege
+        FINANZDIENSTLEISTUNGEN, // Finanzdienstleistungen
+        HAUSHALT,               // Haushalt
+        ESSENTRINKEN,           // Essen & Trinken
+        SHOPPING,               // Shopping
+        UNTERHALTUNG,           // Unterhaltung & Kultur
+        URLAUB,                 // Urlaub & Reisen
+        DIVERSES,               // Diverses
+        NONE                    // ---
     };
 
-    static QStringList getAllCategorieStrings();
     static Categorie categorieFromString(QString string);
+    static QString categorieToString(Categorie categorie);
+    static QStringList getAllCategorieStrings();
 
 public:
 
@@ -33,7 +49,7 @@ public:
     QDate getAccountingDate();
     float getAmount();
     QString getDescription();
-    QString getCategorieAsString();
+    Categorie getCategorie();
 
     QString toString();
 

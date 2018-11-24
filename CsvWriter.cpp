@@ -23,7 +23,7 @@ void CsvWriter::writeFile(QString filePath, QList<AccountingEntry> entries)
         out << entry.getAccountingDate().toString("dd.MM.yyyy") << ";"
             << entry.getDescription() << ";"
             << entry.getAmount() << ";"
-            << entry.getCategorieAsString() << "\n";
+            << AccountingEntry::categorieToString(entry.getCategorie()) << "\n";
         // TODO nach Kategorien aufteilen
     }
 

@@ -46,7 +46,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         else if (index.column() == 2)
             return entrie.getAmount();
         else if (index.column() == 3)
-            return entrie.getCategorieAsString();
+            return AccountingEntry::categorieToString(entrie.getCategorie());
     }
 
     // Ausrichtung der Daten
