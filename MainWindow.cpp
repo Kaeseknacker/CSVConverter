@@ -68,3 +68,5 @@ void MainWindow::exportCsvFile()
 
 }
 
+
+// TODO Buchung manuell einfügen

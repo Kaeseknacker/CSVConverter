@@ -61,6 +61,8 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    // TODO: Breite der Spalten erhöhen
+
     if (role != Qt::DisplayRole)
         return QVariant();
 
