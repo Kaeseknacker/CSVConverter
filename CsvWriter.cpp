@@ -19,12 +19,14 @@ void CsvWriter::writeFile(QString filePath, QList<AccountingEntry> entries)
 
     QTextStream out(&file);
 
-    // TODO: Einträge nach Datum sortieren
+    // Eintraege nach Datum sortieren
+    // TODO: std::sort verwenden
+    qSort(entries);
 
     for (int i = AccountingEntry::Categorie::GEHALT; i <= AccountingEntry::Categorie::NONE; i++) {
         AccountingEntry::Categorie categorie = static_cast<AccountingEntry::Categorie>(i);
 
-        out << "" << ";" << AccountingEntry::categorieToString(categorie) << "\n";
+        out << "" << ";" << "" << ";" << AccountingEntry::categorieToString(categorie) << "\n";
         for (auto entry : entries) {
             if (entry.getCategorie() == categorie) {
                 out << entry.getAccountingDate().toString("dd.MM.yyyy") << ";"

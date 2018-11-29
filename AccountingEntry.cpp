@@ -1,5 +1,6 @@
 #include "AccountingEntry.h"
 
+
 AccountingEntry::AccountingEntry() :
     mCategorie(NONE)
 {
@@ -31,25 +32,25 @@ void AccountingEntry::setCategorie(Categorie categorie)
 }
 
 
-QDate AccountingEntry::getAccountingDate()
+QDate AccountingEntry::getAccountingDate() const
 {
     return mAccountingDate;
 }
 
 
-float AccountingEntry::getAmount()
+float AccountingEntry::getAmount() const
 {
     return mAmount;
 }
 
 
-QString AccountingEntry::getDescription()
+QString AccountingEntry::getDescription() const
 {
     return mDescription;
 }
 
 
-AccountingEntry::Categorie AccountingEntry::getCategorie()
+AccountingEntry::Categorie AccountingEntry::getCategorie() const
 {
     return mCategorie;
 }
@@ -63,6 +64,12 @@ QString AccountingEntry::toString()
     string += "Amount: " + QString::number(mAmount) + " ";
     string += QString("Categorie: ") + categorieToString(mCategorie);
     return string;
+}
+
+
+bool AccountingEntry::operator<(const AccountingEntry& other) const
+{
+    return this->getAccountingDate() < other.getAccountingDate();
 }
 
 

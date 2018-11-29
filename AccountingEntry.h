@@ -46,12 +46,15 @@ public:
     void setDescription(QString description);
     void setCategorie(Categorie categorie);
 
-    QDate getAccountingDate();
-    float getAmount();
-    QString getDescription();
-    Categorie getCategorie();
+    QDate getAccountingDate() const;
+    float getAmount() const;
+    QString getDescription() const;
+    Categorie getCategorie() const;
 
     QString toString();
+
+    //! Buchungen nach Datum sortieren
+    bool operator<(const AccountingEntry& other) const;
 
 
 private:
