@@ -28,9 +28,8 @@ void CsvWriter::writeFile(QString filePath, QList<AccountingEntry> entries)
         for (auto entry : entries) {
             if (entry.getCategorie() == categorie) {
                 out << entry.getAccountingDate().toString("dd.MM.yyyy") << ";"
-                    << entry.getAmount() << ";"
+                    << QString::number(entry.getAmount()).replace(".", ",") << ";"
                     << entry.getDescription() << "\n";
-                // TODO: Betrag mit einem Komma ausgeben und nicht mit Punkt
             }
         }
         out << "\n";
