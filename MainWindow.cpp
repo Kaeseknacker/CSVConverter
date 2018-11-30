@@ -31,7 +31,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::openCsvFile()
 {
-    QList<AccountingEntry> entries = mCsvReader.readFile(ui->lineEdit_importFilePath->text());
+    QString accountStatementFormat = ui->comboBox_broker->currentText();
+    QList<AccountingEntry> entries = mCsvReader.readAccountStatement(ui->lineEdit_importFilePath->text(), accountStatementFormat);
     if (entries.isEmpty()) {
         qDebug() << "Datei-Öffnen fehlgeschlagen!";
         return;

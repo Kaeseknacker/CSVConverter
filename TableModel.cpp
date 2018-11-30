@@ -6,7 +6,7 @@
 TableModel::TableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-
+    // TODO Spalte nach Datum sortieren
 }
 
 

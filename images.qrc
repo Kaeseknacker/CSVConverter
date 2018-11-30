@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/Comdirect.png</file>
+        <file>icons/Sparkasse.png</file>
+    </qresource>
+</RCC>

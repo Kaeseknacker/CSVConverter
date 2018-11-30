@@ -12,7 +12,20 @@ CsvReader::CsvReader()
 }
 
 
-QList<AccountingEntry> CsvReader::readFile(QString filePath)
+QList<AccountingEntry> CsvReader::readAccountStatement(QString filePath, QString accountStatementFormat)
+{
+    if (accountStatementFormat == "Comdirect") {
+        return readAccountStatementComdirect(filePath);
+    } else if (accountStatementFormat == "Sparkasse") {
+        return readAccountStatementSparkasse(filePath);
+    } else {
+        qDebug() << "Undefiniertes Format:" << accountStatementFormat;
+        return QList<AccountingEntry>();
+    }
+}
+
+
+QList<AccountingEntry> CsvReader::readAccountStatementComdirect(QString filePath)
 {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -59,4 +72,14 @@ QList<AccountingEntry> CsvReader::readFile(QString filePath)
     file.close();
 
     return entries;
+}
+
+
+QList<AccountingEntry> CsvReader::readAccountStatementSparkasse(QString filePath)
+{
+    Q_UNUSED(filePath)
+
+    // TODO: Implementieren
+
+    return QList<AccountingEntry>();
 }

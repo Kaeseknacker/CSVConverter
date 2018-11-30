@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Accounting Manager</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -22,6 +22,28 @@
         <property name="text">
          <string>D:\Dokumente\Finanzen\Kontoauszüge\2018\Comdirect\umsaetze_1181803782_20181103-1437.csv</string>
         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox_broker">
+        <item>
+         <property name="text">
+          <string>Comdirect</string>
+         </property>
+         <property name="icon">
+          <iconset resource="images.qrc">
+           <normaloff>:/icons/icons/Comdirect.png</normaloff>:/icons/icons/Comdirect.png</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sparkasse</string>
+         </property>
+         <property name="icon">
+          <iconset resource="images.qrc">
+           <normaloff>:/icons/icons/Sparkasse.png</normaloff>:/icons/icons/Sparkasse.png</iconset>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -78,6 +100,8 @@
   <tabstop>lineEdit_exportFilePath</tabstop>
   <tabstop>pushButton_export</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
