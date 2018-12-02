@@ -5,6 +5,7 @@
 #include <QUrl>
 
 #include "ComboBoxItemDelegate.h"
+#include "AddAccountingEntryDialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,8 +19,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->tableView_accountingEntries);
     ui->tableView_accountingEntries->setItemDelegateForColumn(3, cbid);
 
-    connect(ui->pushButton_import, &QPushButton::clicked, this, &MainWindow::openCsvFile);
+    connect(ui->pushButton_import, &QPushButton::clicked, this, &MainWindow::importCsvFile);
     connect(ui->pushButton_export, &QPushButton::clicked, this, &MainWindow::exportCsvFile);
+    connect(ui->pushButton_addAccountingEntry, &QPushButton::clicked, this, &MainWindow::openAddAccountingEntryDialog);
 }
 
 
@@ -29,7 +31,7 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::openCsvFile()
+void MainWindow::importCsvFile()
 {
     QString accountStatementFormat = ui->comboBox_broker->currentText();
     QList<AccountingEntry> entries = mCsvReader.readAccountStatement(ui->lineEdit_importFilePath->text(), accountStatementFormat);
@@ -49,8 +51,6 @@ void MainWindow::openCsvFile()
 
 void MainWindow::exportCsvFile()
 {
-    qDebug() << "TODO: csv-File exportieren";
-
     QList<AccountingEntry> entries; // Vom Table Model holen
 
     for (int row = 0; row < mTableModel->rowCount(QModelIndex()); row++) {
@@ -63,11 +63,25 @@ void MainWindow::exportCsvFile()
         entries.push_back(entry);
     }
 
-    qDebug() << "Entries:" << entries.size();
+    qDebug() << "#Entries:" << entries.size();
 
     mCsvWriter.writeFile(ui->lineEdit_exportFilePath->text(), entries);
 
 }
 
 
-// TODO Buchung manuell einfügen
+void MainWindow::openAddAccountingEntryDialog()
+{
+    AddAccountingEntryDialog* dialog = new AddAccountingEntryDialog(this);
+
+    int res = dialog->exec();
+    if (res == QDialog::Accepted) {
+        AccountingEntry entry;
+        bool ok = dialog->getAccountingEntry(entry);
+        if (ok) {
+            mTableModel->addAccountingEntry(entry);
+        }
+    }
+
+    delete dialog;
+}

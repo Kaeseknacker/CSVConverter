@@ -30,7 +30,8 @@ SOURCES += \
     AccountingEntry.cpp \
     TableModel.cpp \
     ComboBoxItemDelegate.cpp \
-    CsvWriter.cpp
+    CsvWriter.cpp \
+    AddAccountingEntryDialog.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -38,10 +39,12 @@ HEADERS += \
     AccountingEntry.h \
     TableModel.h \
     ComboBoxItemDelegate.h \
-    CsvWriter.h
+    CsvWriter.h \
+    AddAccountingEntryDialog.h
 
 FORMS += \
-        MainWindow.ui
+        MainWindow.ui \
+    AddAccountingEntryDialog.ui
 
 RESOURCES += \
     images.qrc

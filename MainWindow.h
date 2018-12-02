@@ -15,14 +15,25 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+// ** Konstruktor / Destruktor **
 public:
+
+    //! Konstruktor
     explicit MainWindow(QWidget *parent = 0);
+
+    //! Destruktor
     ~MainWindow();
 
 private slots:
 
-    void openCsvFile();
+    //! Importiert Buchungen von einem csv-File
+    void importCsvFile();
+
+    //! Exportiert Buchungen in ein csv-File
     void exportCsvFile();
+
+    //! Oeffnet den AddAccountingEntryDialog
+    void openAddAccountingEntryDialog();
 
 private:
     Ui::MainWindow *ui;
