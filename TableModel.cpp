@@ -1,6 +1,7 @@
 #include "TableModel.h"
 
 #include <QDebug>
+#include <QColor>
 
 
 TableModel::TableModel(QObject *parent)
@@ -35,18 +36,28 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     if (index.row() >= mEntries.size() || index.row() < 0)
         return QVariant();
 
+    auto entrie = mEntries.at(index.row());
+
     // Daten werden angefordert
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
-        auto entrie = mEntries.at(index.row());
-
         if (index.column() == 0)
             return QVariant(entrie.getAccountingDate().toString("dd.MM.yyyy"));
         else if (index.column() == 1)
             return entrie.getDescription();
         else if (index.column() == 2)
-            return entrie.getAmount();
+            return QString::number(entrie.getAmount(), 'f', 2) + " €";
         else if (index.column() == 3)
             return AccountingEntry::categorieToString(entrie.getCategorie());
+    }
+
+    if (role == Qt::TextColorRole) {
+        if (index.column() == 2) {
+            if (entrie.getAmount() >= 0) {
+                return QColor(Qt::GlobalColor::darkGreen);
+            } else {
+                return QColor(Qt::GlobalColor::red);
+            }
+        }
     }
 
     // Ausrichtung der Daten
