@@ -18,6 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView_accountingEntries->setModel(mTableModel);
     ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->tableView_accountingEntries);
     ui->tableView_accountingEntries->setItemDelegateForColumn(3, cbid);
+    QHeaderView* headerView = ui->tableView_accountingEntries->horizontalHeader();
+    headerView->setSectionResizeMode(0, QHeaderView::Interactive);
+    headerView->setSectionResizeMode(1, QHeaderView::Stretch);
+    headerView->setSectionResizeMode(2, QHeaderView::Interactive);
+    headerView->setSectionResizeMode(3, QHeaderView::Interactive);
 
     connect(ui->pushButton_import, &QPushButton::clicked, this, &MainWindow::importCsvFile);
     connect(ui->pushButton_export, &QPushButton::clicked, this, &MainWindow::exportCsvFile);
