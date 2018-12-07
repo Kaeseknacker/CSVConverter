@@ -40,24 +40,17 @@ QList<AccountingEntry> CsvReader::readAccountStatementComdirect(QString filePath
 
         QList<QByteArray> columns = line.split(';');
 
-        // TODO: Es gibt keine Backslashes. Steige hier auf QString um
-        QByteArray first = columns[0];
+        QString dateString = columns[0].replace("\"", "").replace(".", "/");
 
-        first.replace('.', '/');
-
-        // Schneide die komischen Backslashes ab
-        QByteArray firstNew = first.mid(1, 10);
-
-        QDate date = QDate::fromString(firstNew, "dd/MM/yyyy");
+        QDate date = QDate::fromString(dateString, "dd/MM/yyyy");
 
         if (date.isValid()) {
             qDebug() << date;
 
-            QString description = columns[3];
+            QString description = columns[3].replace("\"", "");
 
-            QByteArray baAmount = columns[4].mid(1, columns[4].length() - 2).replace(".", "").replace(',', '.');
-
-            float amount = baAmount.toFloat();
+            QString sAmount = columns[4].replace("\"", "").replace(".", "").replace(",", ".");
+            float amount = sAmount.toFloat();
 
             AccountingEntry entry;
             entry.setAccountingDate(date);
@@ -90,6 +83,8 @@ QList<AccountingEntry> CsvReader::readAccountStatementSparkasse(QString filePath
         QByteArray line = file.readLine();
 
         QList<QByteArray> columns = line.split(';');
+
+        if (columns.size() < 2) continue;
 
         // Entferne die Anfuehrungszeichen und passe das Datumsformat an
         QString second = columns[1].replace("\"", "").replace(".", "/");
