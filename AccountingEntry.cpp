@@ -120,6 +120,7 @@ QString AccountingEntry::categorieToString(Categorie categorie)
     case DIVERSES               : return "Diverses";
     case NONE                   : return "---";
     }
+    return "";
 }
 
 
@@ -143,4 +144,34 @@ QStringList AccountingEntry::getAllCategorieStrings()
     list << categorieToString(DIVERSES              );
     list << categorieToString(NONE                  );
     return list;
+}
+
+
+QColor AccountingEntry::getCategorieColor(QString categorie)
+{
+    return getCategorieColor(categorieFromString(categorie));
+}
+
+
+QColor AccountingEntry::getCategorieColor(Categorie categorie)
+{
+    switch (categorie) {
+    case GEHALT                 : return QColor(0, 204, 0);
+    case WOHNEN                 : return QColor(102, 102, 255);
+    case BEITRAEGE              : return QColor(255, 102, 0);
+    case MOBILITAET             : return QColor(153, 77, 0);
+    case ABSICHERUNG            : return QColor(255, 77, 77);
+    case STEUERN                : return QColor(153, 102, 0);
+    case SPAREN                 : return QColor(0, 102, 0);
+    case GESUNDHEIT             : return QColor(0, 255, 255);
+    case FINANZDIENSTLEISTUNGEN : return QColor(77, 77, 255);
+    case HAUSHALT               : return QColor(255, 255, 0);
+    case ESSENTRINKEN           : return QColor(51, 153, 255);
+    case SHOPPING               : return QColor(102, 0, 204);
+    case UNTERHALTUNG           : return QColor(153, 51, 153);
+    case URLAUB                 : return QColor(255, 0, 255);
+    case DIVERSES               : return QColor(191, 191, 191);
+    case NONE                   : return Qt::transparent;
+    }
+    return Qt::transparent;
 }

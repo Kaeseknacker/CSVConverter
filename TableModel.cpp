@@ -60,6 +60,12 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         }
     }
 
+    if (role == Qt::BackgroundColorRole) {
+        if (index.column() == 3) {
+            return AccountingEntry::getCategorieColor(entrie.getCategorie());
+        }
+    }
+
     // Ausrichtung der Daten
     if (role == Qt::TextAlignmentRole) {
         if (index.column() == 2)
@@ -117,10 +123,6 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
 
         auto entrie = mEntries.value(row);
 
-        // TODO: richtig programmieren
-        // HIER WEITER
-        // Setzen der Kategorien richtig machen. Es ist dumm das einmal enums verwendet werde und einmal strings.
-
         if (index.column() == 0) {
             // Datum nicht editierbar
             return false;
@@ -130,8 +132,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
             // Betrag nicht editierbar
             return false;
         } else if (index.column() == 3) {
-            QString categorieString = value.toString();
-            entrie.setCategorie(AccountingEntry::categorieFromString(categorieString));
+            entrie.setCategorie(AccountingEntry::categorieFromString(value.toString()));
         } else {
             return false;
         }

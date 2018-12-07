@@ -26,11 +26,12 @@ QWidget* ComboBoxItemDelegate::createEditor(QWidget* parent, const QStyleOptionV
     QComboBox* cb = new QComboBox(parent);
 
     QStringList categories = AccountingEntry::getAllCategorieStrings();
-    // TODO: Kategorien mit Farbe versehen
-    // Die Farben vielleicht direkt in der AccountinEntry Klasse definieren
-    // Dann keine StringListe zurueckgeben, sondern eine Liste von QVariants
+
+    int i = 0;
     for (auto categorie : categories) {
         cb->addItem(categorie);
+        cb->setItemData(i, AccountingEntry::getCategorieColor(categorie), Qt::BackgroundColorRole);
+        i++;
     }
     return cb;
 }

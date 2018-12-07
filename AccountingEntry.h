@@ -2,6 +2,7 @@
 #define ACCOUNTINGENTRY_H
 
 #include <QDate>
+#include <QColor>
 
 /*!
  * \brief The AccountingEntry class
@@ -33,6 +34,8 @@ public:
     static Categorie categorieFromString(QString string);
     static QString categorieToString(Categorie categorie);
     static QStringList getAllCategorieStrings();
+    static QColor getCategorieColor(QString categorie);
+    static QColor getCategorieColor(Categorie categorie);
 
 public:
 

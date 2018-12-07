@@ -11,8 +11,11 @@ AddAccountingEntryDialog::AddAccountingEntryDialog(QWidget *parent) :
     ui->setupUi(this);
 
     QStringList categories = AccountingEntry::getAllCategorieStrings();
+    int i = 0;
     for (auto categorie : categories) {
         ui->comboBox_categorie->addItem(categorie);
+        ui->comboBox_categorie->setItemData(i, AccountingEntry::getCategorieColor(categorie), Qt::BackgroundColorRole);
+        i++;
     }
 }
 
