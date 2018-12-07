@@ -40,6 +40,8 @@ QList<AccountingEntry> CsvReader::readAccountStatementComdirect(QString filePath
 
         QList<QByteArray> columns = line.split(';');
 
+        if (columns.size() < 5) continue;
+
         QString dateString = columns[0].replace("\"", "").replace(".", "/");
 
         QDate date = QDate::fromString(dateString, "dd/MM/yyyy");
@@ -84,7 +86,7 @@ QList<AccountingEntry> CsvReader::readAccountStatementSparkasse(QString filePath
 
         QList<QByteArray> columns = line.split(';');
 
-        if (columns.size() < 2) continue;
+        if (columns.size() < 10) continue;
 
         // Entferne die Anfuehrungszeichen und passe das Datumsformat an
         QString second = columns[1].replace("\"", "").replace(".", "/");

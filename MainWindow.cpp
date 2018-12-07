@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QUrl>
+#include <QFileDialog>
 
 #include "ComboBoxItemDelegate.h"
 #include "AddAccountingEntryDialog.h"
@@ -38,8 +39,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::importCsvFile()
 {
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Wähle Kontoauszug"), "", tr("Kontoauszug (*.csv);;Alle (*)"));
+    qDebug() << filePath;
+    if (filePath.isEmpty()) {
+        return;
+    }
+
     QString accountStatementFormat = ui->comboBox_broker->currentText();
-    QList<AccountingEntry> entries = mCsvReader.readAccountStatement(ui->lineEdit_importFilePath->text(), accountStatementFormat);
+    QList<AccountingEntry> entries = mCsvReader.readAccountStatement(filePath, accountStatementFormat);
     if (entries.isEmpty()) {
         qDebug() << "Datei-Öffnen fehlgeschlagen!";
         return;
@@ -56,7 +63,14 @@ void MainWindow::importCsvFile()
 
 void MainWindow::exportCsvFile()
 {
-    QList<AccountingEntry> entries; // Vom Table Model holen
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Speichere Buchungen"), "", tr("Buchungen (*.csv);;Alle (*)"));
+    qDebug() << filePath;
+    if (filePath.isEmpty()) {
+        return;
+    }
+
+    // Eintraege vom Table Model holen
+    QList<AccountingEntry> entries;
 
     for (int row = 0; row < mTableModel->rowCount(QModelIndex()); row++) {
         AccountingEntry entry;
@@ -70,7 +84,7 @@ void MainWindow::exportCsvFile()
 
     qDebug() << "#Entries:" << entries.size();
 
-    mCsvWriter.writeFile(ui->lineEdit_exportFilePath->text(), entries);
+    mCsvWriter.writeFile(filePath, entries);
 
 }
 
