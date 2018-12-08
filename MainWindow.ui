@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Accounting Manager</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/icons/icons/AccountingManager.png</normaloff>:/icons/icons/AccountingManager.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
