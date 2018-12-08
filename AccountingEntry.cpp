@@ -164,7 +164,7 @@ QColor AccountingEntry::getCategorieColor(Categorie categorie)
     case STEUERN                : return QColor(153, 102, 0);
     case SPAREN                 : return QColor(0, 102, 0);
     case GESUNDHEIT             : return QColor(0, 255, 255);
-    case FINANZDIENSTLEISTUNGEN : return QColor(77, 77, 255);
+    case FINANZDIENSTLEISTUNGEN : return QColor(77, 77, 255); //TODO: zu ähnlich zu Wohnen
     case HAUSHALT               : return QColor(255, 255, 0);
     case ESSENTRINKEN           : return QColor(51, 153, 255);
     case SHOPPING               : return QColor(102, 0, 204);

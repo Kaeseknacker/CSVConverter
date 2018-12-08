@@ -40,6 +40,9 @@ public:
     //! Fuegt eine neue Buchung dem Model hinzu
     QModelIndex addAccountingEntry(AccountingEntry entry);
 
+    //! Loescht Buchungen aus dem Model
+    bool deleteAccountingEntry(int position, int rows);
+
 
 private:
     QList<AccountingEntry> mEntries;

@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QUrl>
 #include <QFileDialog>
+#include <QMenu>
 
 #include "ComboBoxItemDelegate.h"
 #include "AddAccountingEntryDialog.h"
@@ -25,9 +26,14 @@ MainWindow::MainWindow(QWidget *parent) :
     headerView->setSectionResizeMode(2, QHeaderView::Interactive);
     headerView->setSectionResizeMode(3, QHeaderView::Interactive);
 
+    ui->tableView_accountingEntries->verticalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->tableView_accountingEntries->verticalHeader(), &QHeaderView::customContextMenuRequested,
+            this, &MainWindow::showContextMenu);
+
     connect(ui->pushButton_import, &QPushButton::clicked, this, &MainWindow::importCsvFile);
     connect(ui->pushButton_export, &QPushButton::clicked, this, &MainWindow::exportCsvFile);
     connect(ui->pushButton_addAccountingEntry, &QPushButton::clicked, this, &MainWindow::openAddAccountingEntryDialog);
+    connect(ui->pushButton_deleteAccountingEntry, &QPushButton::clicked, this, &MainWindow::deleteAccountingEntries);
 }
 
 
@@ -103,4 +109,38 @@ void MainWindow::openAddAccountingEntryDialog()
     }
 
     delete dialog;
+}
+
+
+void MainWindow::deleteAccountingEntries()
+{
+    QModelIndexList indexes = ui->tableView_accountingEntries->selectionModel()->selectedRows();
+    int countRow = indexes.count();
+
+    qDebug() << "Delete Indizes:";
+    qDebug() << indexes;
+
+    for (int i = countRow; i > 0; i--) {
+        mTableModel->deleteAccountingEntry(indexes.at(i-1).row(), 1);
+    }
+
+}
+
+
+void MainWindow::showContextMenu(const QPoint& pos)
+{
+    // Keine Zeilen ausgewaehlt
+    int selectedRows = ui->tableView_accountingEntries->selectionModel()->selectedRows().size();
+    if (selectedRows <= 0) {
+        return;
+    }
+
+    QMenu contextMenu(tr("Kontextmenü"), ui->tableView_accountingEntries->verticalHeader());
+
+    QString actionDescription = selectedRows == 1 ? tr("Buchung löschen...") : tr("Buchungen löschen...");
+    QAction* action_delete = new QAction(actionDescription, this);
+    connect(action_delete, &QAction::triggered, this, &MainWindow::deleteAccountingEntries);
+    contextMenu.addAction(action_delete);
+
+    contextMenu.exec(ui->tableView_accountingEntries->verticalHeader()->mapToGlobal(pos));
 }

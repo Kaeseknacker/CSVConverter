@@ -35,6 +35,12 @@ private slots:
     //! Oeffnet den AddAccountingEntryDialog
     void openAddAccountingEntryDialog();
 
+    //! Loescht die ausgewaehlten Buchungen
+    void deleteAccountingEntries();
+
+    //! Zeigt das Kontextmenue fuer die TableView
+    void showContextMenu(const QPoint& pos);
+
 private:
     Ui::MainWindow *ui;
 

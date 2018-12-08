@@ -155,3 +155,15 @@ QModelIndex TableModel::addAccountingEntry(AccountingEntry entry)
     endInsertRows();
     return index(rowIndex, 0);
 }
+
+
+bool TableModel::deleteAccountingEntry(int position, int rows)
+{
+    beginRemoveRows(QModelIndex(), position, position + rows -1);
+
+    for (int row = 0; row < rows; row++) {
+        mEntries.removeAt(position);
+    }
+    endRemoveRows();
+    return true;
+}
