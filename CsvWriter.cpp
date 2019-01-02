@@ -28,6 +28,9 @@ void CsvWriter::writeFile(QString filePath, QList<AccountingEntry> entries)
 
         out << "" << ";" << "" << ";" << AccountingEntry::categorieToString(categorie) << "\n";
         for (auto entry : entries) {
+
+            qDebug() << entry.getAmount();
+
             if (entry.getCategorie() == categorie) {
                 out << entry.getAccountingDate().toString("dd.MM.yyyy") << ";"
                     << QString::number(entry.getAmount()).replace(".", ",") << ";"

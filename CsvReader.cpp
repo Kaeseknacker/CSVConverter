@@ -73,6 +73,8 @@ QList<AccountingEntry> CsvReader::readAccountStatementComdirect(QString filePath
 
 QList<AccountingEntry> CsvReader::readAccountStatementSparkasse(QString filePath)
 {
+    // CSV-MT940-Format
+
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();

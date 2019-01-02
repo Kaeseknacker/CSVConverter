@@ -10,6 +10,8 @@ AddAccountingEntryDialog::AddAccountingEntryDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->dateEdit_accountingDate->setDate(QDate::currentDate());
+
     QStringList categories = AccountingEntry::getAllCategorieStrings();
     int i = 0;
     for (auto categorie : categories) {

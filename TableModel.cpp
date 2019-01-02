@@ -28,6 +28,7 @@ int TableModel::columnCount(const QModelIndex &parent) const
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
     // TODO User Rollen einfügen und dann einen ganzen Entry zurückgeben
+    // TODO Bugfix: Eine "Data-Role" einführen. Ammount wird als float zurückgegeben usw...
 
     // Ungültiger Index
     if (!index.isValid()) {
