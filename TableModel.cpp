@@ -28,7 +28,6 @@ int TableModel::columnCount(const QModelIndex &parent) const
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
     // TODO User Rollen einfügen und dann einen ganzen Entry zurückgeben
-    // TODO Bugfix: Eine "Data-Role" einführen. Ammount wird als float zurückgegeben usw...
 
     // Ungültiger Index
     if (!index.isValid()) {
@@ -40,7 +39,20 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     auto entrie = mEntries.at(index.row());
 
     // Daten werden angefordert
-    if (role == Qt::DisplayRole || role == Qt::EditRole) {
+    switch (role) {
+
+    case DataRole:
+        if (index.column() == 0)
+            return entrie.getAccountingDate();
+        else if (index.column() == 1)
+            return entrie.getDescription();
+        else if (index.column() == 2)
+            return entrie.getAmount();
+        else if (index.column() == 3)
+            return AccountingEntry::categorieToString(entrie.getCategorie());
+
+    case Qt::DisplayRole:
+    case Qt::EditRole:
         if (index.column() == 0)
             return QVariant(entrie.getAccountingDate().toString("dd.MM.yyyy"));
         else if (index.column() == 1)
@@ -49,9 +61,8 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             return QString::number(entrie.getAmount(), 'f', 2) + " €";
         else if (index.column() == 3)
             return AccountingEntry::categorieToString(entrie.getCategorie());
-    }
 
-    if (role == Qt::TextColorRole) {
+    case Qt::TextColorRole:
         if (index.column() == 2) {
             if (entrie.getAmount() >= 0) {
                 return QColor(Qt::GlobalColor::darkGreen);
@@ -59,18 +70,21 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
                 return QColor(Qt::GlobalColor::red);
             }
         }
-    }
+        break;
 
-    if (role == Qt::BackgroundColorRole) {
+    case Qt::BackgroundColorRole:
         if (index.column() == 3) {
             return AccountingEntry::getCategorieColor(entrie.getCategorie());
         }
-    }
+        break;
 
-    // Ausrichtung der Daten
-    if (role == Qt::TextAlignmentRole) {
+    case Qt::TextAlignmentRole:
         if (index.column() == 2)
             return int(Qt::AlignRight | Qt::AlignVCenter);
+        break;
+
+    default:
+        break;
     }
 
     return QVariant();

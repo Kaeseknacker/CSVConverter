@@ -80,10 +80,10 @@ void MainWindow::exportCsvFile()
 
     for (int row = 0; row < mTableModel->rowCount(QModelIndex()); row++) {
         AccountingEntry entry;
-        entry.setAccountingDate(QDate::fromString(mTableModel->data(mTableModel->index(row, 0), Qt::DisplayRole).toString(), "dd.MM.yyyy"));
-        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), Qt::DisplayRole).toString());
-        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), Qt::DisplayRole).toFloat());
-        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), Qt::DisplayRole).toString()));
+        entry.setAccountingDate(mTableModel->data(mTableModel->index(row, 0), TableModel::DataRole).toDate());
+        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), TableModel::DataRole).toString());
+        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), TableModel::DataRole).toFloat());
+        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), TableModel::DataRole).toString()));
 
         entries.push_back(entry);
     }

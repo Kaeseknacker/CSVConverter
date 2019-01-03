@@ -14,6 +14,10 @@ public:
     //! Konstruktor
     TableModel(QObject* parent = nullptr);
 
+    enum Roles {
+        DataRole = Qt::UserRole + 1
+    };
+
 public:
 
     //! Anzahl der aktuellen Zeilen
