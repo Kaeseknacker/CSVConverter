@@ -156,19 +156,19 @@ QColor AccountingEntry::getCategorieColor(QString categorie)
 QColor AccountingEntry::getCategorieColor(Categorie categorie)
 {
     switch (categorie) {
-    case GEHALT                 : return QColor(0, 204, 0);
+    case GEHALT                 : return QColor(0, 224, 0);
     case WOHNEN                 : return QColor(102, 102, 255);
     case BEITRAEGE              : return QColor(255, 102, 0);
-    case MOBILITAET             : return QColor(153, 77, 0);
+    case MOBILITAET             : return QColor(230, 153, 0);
     case ABSICHERUNG            : return QColor(255, 77, 77);
     case STEUERN                : return QColor(153, 102, 0);
-    case SPAREN                 : return QColor(0, 102, 0);
+    case SPAREN                 : return QColor(0, 152, 0);
     case GESUNDHEIT             : return QColor(0, 255, 255);
-    case FINANZDIENSTLEISTUNGEN : return QColor(77, 77, 255); //TODO: zu ähnlich zu Wohnen
+    case FINANZDIENSTLEISTUNGEN : return QColor(77, 77, 255); //TODO: entfernen
     case HAUSHALT               : return QColor(255, 255, 0);
     case ESSENTRINKEN           : return QColor(51, 153, 255);
     case SHOPPING               : return QColor(102, 0, 204);
-    case UNTERHALTUNG           : return QColor(153, 51, 153);
+    case UNTERHALTUNG           : return QColor(173, 71, 173);
     case URLAUB                 : return QColor(255, 0, 255);
     case DIVERSES               : return QColor(191, 191, 191);
     case NONE                   : return Qt::transparent;
