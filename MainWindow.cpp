@@ -127,6 +127,47 @@ void MainWindow::deleteAccountingEntries()
 }
 
 
+void MainWindow::sumUpAccountingEntries()
+{
+    QModelIndexList indexes = ui->tableView_accountingEntries->selectionModel()->selectedRows();
+
+    qDebug() << "Sum up Indizes:";
+    qDebug() << indexes;
+
+    // get accounting entries
+    QList<AccountingEntry> entries;
+
+    for (auto index : indexes) {
+        AccountingEntry entry;
+        int row = index.row();
+        entry.setAccountingDate(mTableModel->data(mTableModel->index(row, 0), TableModel::DataRole).toDate());
+        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), TableModel::DataRole).toString());
+        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), TableModel::DataRole).toFloat());
+        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), TableModel::DataRole).toString()));
+
+        entries.push_back(entry);
+    }
+
+    // create new AccountingEntry
+    AccountingEntry sumUpEntry;
+    sumUpEntry.setAccountingDate(entries[0].getAccountingDate());
+    float amount = 0.0;
+    QString description = "";
+    for (auto entry : entries) {
+        amount += entry.getAmount();
+        description += entry.getDescription() + " + ";
+    }
+    sumUpEntry.setAmount(amount);
+    sumUpEntry.setDescription(description);
+
+    // delete old Entries
+    deleteAccountingEntries();
+
+    // add new Entry
+    mTableModel->addAccountingEntry(sumUpEntry);
+}
+
+
 void MainWindow::showContextMenu(const QPoint& pos)
 {
     // Keine Zeilen ausgewaehlt
@@ -141,6 +182,13 @@ void MainWindow::showContextMenu(const QPoint& pos)
     QAction* action_delete = new QAction(actionDescription, this);
     connect(action_delete, &QAction::triggered, this, &MainWindow::deleteAccountingEntries);
     contextMenu.addAction(action_delete);
+
+    if (selectedRows >= 2) {
+        QString actionDescription = tr("Buchungen zusammenfassen...");
+        QAction* action_sumUp = new QAction(actionDescription, this);
+        connect(action_sumUp, &QAction::triggered, this, &MainWindow::sumUpAccountingEntries);
+        contextMenu.addAction(action_sumUp);
+    }
 
     contextMenu.exec(ui->tableView_accountingEntries->verticalHeader()->mapToGlobal(pos));
 }

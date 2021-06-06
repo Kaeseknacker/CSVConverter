@@ -66,10 +66,10 @@ private:
     QDate mAccountingDate;
 
     //! Umsatz
-    float mAmount;
+    float mAmount = 0.0;
 
     //! Buchungstext
-    QString mDescription;
+    QString mDescription = "";
 
     //! Kategorie
     Categorie mCategorie;

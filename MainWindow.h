@@ -38,6 +38,9 @@ private slots:
     //! Loescht die ausgewaehlten Buchungen
     void deleteAccountingEntries();
 
+    //! Fasse ausgewaehlte Buchungen zusammen
+    void sumUpAccountingEntries();
+
     //! Zeigt das Kontextmenue fuer die TableView
     void showContextMenu(const QPoint& pos);
 
