@@ -80,10 +80,10 @@ void MainWindow::exportCsvFile()
 
     for (int row = 0; row < mTableModel->rowCount(QModelIndex()); row++) {
         AccountingEntry entry;
-        entry.setAccountingDate(mTableModel->data(mTableModel->index(row, 0), TableModel::DataRole).toDate());
-        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), TableModel::DataRole).toString());
-        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), TableModel::DataRole).toFloat());
-        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), TableModel::DataRole).toString()));
+        entry.setAccountingDate(mTableModel->data(mTableModel->index(row, 0), TableModel::DataRoleSimple).toDate());
+        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), TableModel::DataRoleSimple).toString());
+        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), TableModel::DataRoleSimple).toFloat());
+        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), TableModel::DataRoleSimple).toString()));
 
         entries.push_back(entry);
     }
@@ -138,13 +138,7 @@ void MainWindow::sumUpAccountingEntries()
     QList<AccountingEntry> entries;
 
     for (auto index : indexes) {
-        AccountingEntry entry;
-        int row = index.row();
-        entry.setAccountingDate(mTableModel->data(mTableModel->index(row, 0), TableModel::DataRole).toDate());
-        entry.setDescription(mTableModel->data(mTableModel->index(row, 1), TableModel::DataRole).toString());
-        entry.setAmount(mTableModel->data(mTableModel->index(row, 2), TableModel::DataRole).toFloat());
-        entry.setCategorie(AccountingEntry::categorieFromString(mTableModel->data(mTableModel->index(row, 3), TableModel::DataRole).toString()));
-
+        AccountingEntry entry = mTableModel->data(index, TableModel::DataRole).value<AccountingEntry>();
         entries.push_back(entry);
     }
 

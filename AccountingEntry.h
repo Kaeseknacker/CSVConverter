@@ -1,6 +1,7 @@
 #ifndef ACCOUNTINGENTRY_H
 #define ACCOUNTINGENTRY_H
 
+#include <QMetaType>
 #include <QDate>
 #include <QColor>
 
@@ -75,5 +76,7 @@ private:
     Categorie mCategorie;
 
 };
+
+Q_DECLARE_METATYPE( AccountingEntry )
 
 #endif // ACCOUNTINGENTRY_H

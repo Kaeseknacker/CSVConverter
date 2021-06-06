@@ -15,7 +15,8 @@ public:
     TableModel(QObject* parent = nullptr);
 
     enum Roles {
-        DataRole = Qt::UserRole + 1
+        DataRoleSimple = Qt::UserRole + 1,
+        DataRole = Qt::UserRole + 2
     };
 
 public:

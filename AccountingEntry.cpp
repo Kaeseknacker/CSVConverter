@@ -61,7 +61,7 @@ QString AccountingEntry::toString()
     QString string = "";
     string += "Date: " + mAccountingDate.toString() + " ";
     string += QString("Description: ") + mDescription + " ";
-    string += "Amount: " + QString::number(mAmount) + " ";
+    string += "Amount: " + QString::number(static_cast<double>(mAmount)) + " ";
     string += QString("Categorie: ") + categorieToString(mCategorie);
     return string;
 }

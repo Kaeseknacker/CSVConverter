@@ -27,8 +27,6 @@ int TableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
-    // TODO User Rollen einfügen und dann einen ganzen Entry zurückgeben
-
     // Ungültiger Index
     if (!index.isValid()) {
         return QVariant();
@@ -36,12 +34,12 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     if (index.row() >= mEntries.size() || index.row() < 0)
         return QVariant();
 
-    auto entrie = mEntries.at(index.row());
+    AccountingEntry entrie = mEntries.at(index.row());
 
     // Daten werden angefordert
     switch (role) {
 
-    case DataRole:
+    case DataRoleSimple: {
         if (index.column() == 0)
             return entrie.getAccountingDate();
         else if (index.column() == 1)
@@ -50,19 +48,25 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             return entrie.getAmount();
         else if (index.column() == 3)
             return AccountingEntry::categorieToString(entrie.getCategorie());
-
+        break;
+    }
+    case DataRole: {
+        return QVariant::fromValue(entrie);
+    }
     case Qt::DisplayRole:
-    case Qt::EditRole:
-        if (index.column() == 0)
+    case Qt::EditRole: {
+        if (index.column() == 0) {
             return QVariant(entrie.getAccountingDate().toString("dd.MM.yyyy"));
-        else if (index.column() == 1)
+        } else if (index.column() == 1) {
             return entrie.getDescription();
-        else if (index.column() == 2)
-            return QString::number(entrie.getAmount(), 'f', 2) + " €";
-        else if (index.column() == 3)
+        } else if (index.column() == 2) {
+            return QString::number(static_cast<double>(entrie.getAmount()), 'f', 2) + " €";
+        } else if (index.column() == 3) {
             return AccountingEntry::categorieToString(entrie.getCategorie());
-
-    case Qt::TextColorRole:
+        }
+        break;
+    }
+    case Qt::TextColorRole: {
         if (index.column() == 2) {
             if (entrie.getAmount() >= 0) {
                 return QColor(Qt::GlobalColor::darkGreen);
@@ -71,20 +75,22 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             }
         }
         break;
-
-    case Qt::BackgroundColorRole:
+    }
+    case Qt::BackgroundColorRole: {
         if (index.column() == 3) {
             return AccountingEntry::getCategorieColor(entrie.getCategorie());
         }
         break;
-
-    case Qt::TextAlignmentRole:
-        if (index.column() == 2)
+    }
+    case Qt::TextAlignmentRole: {
+        if (index.column() == 2) {
             return int(Qt::AlignRight | Qt::AlignVCenter);
+        }
         break;
-
-    default:
+    }
+    default: {
         break;
+    }
     }
 
     return QVariant();
